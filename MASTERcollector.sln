@@ -10,6 +10,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{6E8499C5-C9F6-4CF8-8A84-F5366D38DF3B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sqlite", "Sqlite", "{B7F257D6-DFAE-4C6F-B1C8-2AD054E0676A}"
+	ProjectSection(SolutionItems) = preProject
+		Database\Sqlite\data.db = Database\Sqlite\data.db
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

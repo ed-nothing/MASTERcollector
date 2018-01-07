@@ -25,7 +25,7 @@ namespace MASTERcollector.Engine
             }
         }
 
-        public void UpdateStatus(CollectTaskStatus newStatus)
+        public void UpdateStatus(CollectTaskStatus newStatus)   
         {
 
         }

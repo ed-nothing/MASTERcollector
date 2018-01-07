@@ -10,6 +10,12 @@ namespace MASTERcollector
     public class Framework
     {
 
+        #region Constant
+
+        private const string SQLITE_DATABASE_FILE_NAME = "database.dat";
+
+        #endregion
+
         #region Singleton Support
 
         static Framework _instance = new Framework();
@@ -43,9 +49,28 @@ namespace MASTERcollector
 
         #region Private Functions
 
+        private string _GetSqliteDatabaseFilePath()
+        {
+            return !Environment.CurrentDirectory.EndsWith(System.IO.Path.PathSeparator.ToString()) ?
+                Environment.CurrentDirectory + System.IO.Path.PathSeparator.ToString() + SQLITE_DATABASE_FILE_NAME : 
+                Environment.CurrentDirectory + SQLITE_DATABASE_FILE_NAME;
+        }
+
         private void _SetupDatabase()
         {
-            EntityConnectionStringBuilder cntStringBuilder = new EntityConnectionStringBuilder();
+            //We only support Sqlite for now.
+            EntityConnectionStringBuilder entityConnectionStringBuilder = new EntityConnectionStringBuilder();
+
+            System.Data.SQLite.SQLiteConnectionStringBuilder cntStringBuilder = new System.Data.SQLite.SQLiteConnectionStringBuilder();
+            cntStringBuilder.DataSource = _GetSqliteDatabaseFilePath();
+            cntStringBuilder.Pooling = true;
+
+            if (System.Configuration.ConfigurationManager.ConnectionStrings["SQLITE_CNT_STRING"] != null)
+            {
+                System.Configuration.ConfigurationManager.ConnectionStrings["SQLITE_CNT_STRING"].ConnectionString = cntStringBuilder.ToString();
+            }
+
+
         }
 
         private void _SetupConfiguration()
