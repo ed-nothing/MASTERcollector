@@ -27,7 +27,7 @@ namespace MASTERcollector.Database.Entities
         public string AssamblyName { get; set; }
 
         [Required, StringLength(256)]
-        public string PluginClassPathG { get; set; }
+        public string PluginClassPath { get; set; }
 
         [Required]
         public long Version { get; set; }

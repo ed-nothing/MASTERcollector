@@ -39,6 +39,15 @@ namespace MASTERcollector
 
         internal Database.Database Database { get { return _database; } }
         public Configuration Configuration { get { return _configuration; } }
+        public string PluginPath
+        {
+            get
+            {
+                return !Environment.CurrentDirectory.EndsWith(System.IO.Path.DirectorySeparatorChar.ToString()) ?
+                Environment.CurrentDirectory + System.IO.Path.DirectorySeparatorChar.ToString() + "Plugins" :
+                Environment.CurrentDirectory + "Plugins";
+            }
+        }
 
         #endregion
 
@@ -60,6 +69,15 @@ namespace MASTERcollector
             _SetupPlugins();
 
             _isInitalized = true;
+        }
+
+        #endregion
+
+        #region Internal Functions
+
+        internal string GetPluginDllPath(Database.Entities.Plugin pluginInfo)
+        {
+            return PluginPath + System.IO.Path.DirectorySeparatorChar + pluginInfo.Name + "." + pluginInfo.Identity.ToString() + System.IO.Path.DirectorySeparatorChar + pluginInfo.AssamblyName + ".dll";
         }
 
         #endregion

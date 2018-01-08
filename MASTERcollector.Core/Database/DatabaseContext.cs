@@ -93,6 +93,39 @@ namespace MASTERcollector.Database
             }
         }
 
+        internal void EnumPluginsInfo(Action<int,Entities.Plugin> predicate)
+        {
+            var plugins = from TPlugin in this.Plugins.AsNoTracking() select TPlugin;
+            int index = 0;
+            foreach(var plugin in plugins)
+            {
+                predicate(index++, plugin);
+            }
+        }
+
+        internal void SetPluginInfo(Entities.Plugin plugin)
+        {
+            var prePlugin = (from TPlugin in Plugins where TPlugin.Identity == plugin.Identity select TPlugin).FirstOrDefault();
+            if (prePlugin == null)
+            {
+                Plugins.Add(plugin);
+            }
+            else
+            {
+                prePlugin.AssamblyName = plugin.AssamblyName;
+                prePlugin.Name = plugin.Name;
+                prePlugin.PluginClassPath = plugin.PluginClassPath;
+                prePlugin.Version = plugin.Version;
+            }
+            SaveChanges();
+        }
+
+        internal Entities.Plugin GetPluginInfo(Guid pluginIndentity)
+        {
+            var plugin = (from TPlugin in Plugins where TPlugin.Identity == pluginIndentity select TPlugin).FirstOrDefault();
+            return plugin;
+        }
+
         protected override void Dispose(bool disposing)
         {
             Framework.GetInstance().Database.ReleaseCurrentContext(this);
