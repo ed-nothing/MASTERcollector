@@ -8,13 +8,6 @@ namespace MASTERcollector
 {
     public class Configuration
     {
-        #region Fields
-
-
-
-        #endregion
-
-
         #region Properties
 
         public string this[string key]

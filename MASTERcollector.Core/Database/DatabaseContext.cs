@@ -30,6 +30,7 @@ namespace MASTERcollector.Database
         #region Entities
 
         public virtual DbSet<Entities.Setting> Settings { get; set; }
+        public virtual DbSet<Entities.Plugin> Plugins { get; set; }
 
         #endregion
 

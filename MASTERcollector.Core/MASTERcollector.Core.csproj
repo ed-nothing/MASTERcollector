@@ -62,6 +62,7 @@
     <Compile Include="Database\Database.cs" />
     <Compile Include="Database\DatabaseContext.cs" />
     <Compile Include="Database\DatabaseExtension.cs" />
+    <Compile Include="Database\Entities\Plugin.cs" />
     <Compile Include="Database\Entities\Setting.cs" />
     <Compile Include="Database\IArticle.cs" />
     <Compile Include="Database\IIsolatedStorage.cs" />
