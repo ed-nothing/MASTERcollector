@@ -14,7 +14,9 @@ namespace MASTERcollector.Database
 
         #region Fields
 
+        [ThreadStatic]
         private DatabaseContext _dbContext;
+        private string _databaseName;
 
         #endregion
 
@@ -29,18 +31,19 @@ namespace MASTERcollector.Database
 
         #region Internal Functions
 
-        internal DatabaseContext GetContext()
+        internal DatabaseContext GetCurrentContext()
         {
+            if (_dbContext == null)
+                _dbContext = new DatabaseContext(_databaseName);
+
             return _dbContext;
         }
 
-        internal void EnumSettings(Action<int, string, string> predicate)
+        internal void ReleaseCurrentContext(object context)
         {
-            var results = from Setting in _dbContext.Settings.AsNoTracking() select Setting;
-            int i = 0;
-            foreach(var result in results)
+            if (_dbContext == context)
             {
-                predicate(i++, result.Key, result.Value);
+                _dbContext = null;
             }
         }
 
@@ -50,7 +53,7 @@ namespace MASTERcollector.Database
 
         private void Initialize(string configurationName)
         {
-            _dbContext = new DatabaseContext(configurationName);
+            _databaseName = configurationName;
         }
 
         #endregion

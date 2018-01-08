@@ -11,8 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{6E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sqlite", "Sqlite", "{B7F257D6-DFAE-4C6F-B1C8-2AD054E0676A}"
 	ProjectSection(SolutionItems) = preProject
-		Database\Sqlite\data.db = Database\Sqlite\data.db
+		Database\Sqlite\database.db = Database\Sqlite\database.db
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{921B4B2F-0083-412E-AF1D-B22CFE70B7CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,6 +30,10 @@ Global
 		{C4E536C9-14D6-480F-9BB0-2D7C25BA6637}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4E536C9-14D6-480F-9BB0-2D7C25BA6637}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4E536C9-14D6-480F-9BB0-2D7C25BA6637}.Release|Any CPU.Build.0 = Release|Any CPU
+		{921B4B2F-0083-412E-AF1D-B22CFE70B7CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{921B4B2F-0083-412E-AF1D-B22CFE70B7CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{921B4B2F-0083-412E-AF1D-B22CFE70B7CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{921B4B2F-0083-412E-AF1D-B22CFE70B7CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

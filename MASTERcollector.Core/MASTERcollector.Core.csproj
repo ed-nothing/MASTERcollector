@@ -61,15 +61,17 @@
   <ItemGroup>
     <Compile Include="Database\Database.cs" />
     <Compile Include="Database\DatabaseContext.cs" />
+    <Compile Include="Database\DatabaseExtension.cs" />
     <Compile Include="Database\Entities\Setting.cs" />
     <Compile Include="Database\IArticle.cs" />
     <Compile Include="Database\IIsolatedStorage.cs" />
     <Compile Include="Engine\CollectTaskContext.cs" />
     <Compile Include="Engine\CollectTaskStatus.cs" />
-    <Compile Include="Misc\Configuration.cs" />
+    <Compile Include="Configuration.cs" />
     <Compile Include="Engine\ICollector.cs" />
     <Compile Include="Engine\Logger.cs" />
     <Compile Include="Framework.cs" />
+    <Compile Include="Misc\ExceptionHelper.cs" />
     <Compile Include="Plugin\IPlugin.cs" />
     <Compile Include="Plugin\PluginContext.cs" />
     <Compile Include="Plugin\PluginManager.cs" />

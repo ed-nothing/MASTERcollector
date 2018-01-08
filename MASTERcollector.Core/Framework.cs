@@ -12,7 +12,7 @@ namespace MASTERcollector
 
         #region Constant
 
-        private const string SQLITE_DATABASE_FILE_NAME = "database.dat";
+        private const string SQLITE_DATABASE_FILE_NAME = "database.db";
 
         #endregion
 
@@ -20,10 +20,25 @@ namespace MASTERcollector
 
         static Framework _instance = new Framework();
 
-        public Framework GetInstance()
+        public static Framework GetInstance()
         {
             return _instance;
         }
+
+        #endregion
+
+        #region Fields
+
+        private bool _isInitalized = false;
+        private Database.Database _database;
+        private Configuration _configuration;
+
+        #endregion
+
+        #region Properties
+
+        internal Database.Database Database { get { return _database; } }
+        public Configuration Configuration { get { return _configuration; } }
 
         #endregion
 
@@ -43,6 +58,8 @@ namespace MASTERcollector
             _SetupDatabase();
             _SetupConfiguration();
             _SetupPlugins();
+
+            _isInitalized = true;
         }
 
         #endregion
@@ -51,8 +68,8 @@ namespace MASTERcollector
 
         private string _GetSqliteDatabaseFilePath()
         {
-            return !Environment.CurrentDirectory.EndsWith(System.IO.Path.PathSeparator.ToString()) ?
-                Environment.CurrentDirectory + System.IO.Path.PathSeparator.ToString() + SQLITE_DATABASE_FILE_NAME : 
+            return !Environment.CurrentDirectory.EndsWith(System.IO.Path.DirectorySeparatorChar.ToString()) ?
+                Environment.CurrentDirectory + System.IO.Path.DirectorySeparatorChar.ToString() + SQLITE_DATABASE_FILE_NAME : 
                 Environment.CurrentDirectory + SQLITE_DATABASE_FILE_NAME;
         }
 
@@ -65,17 +82,30 @@ namespace MASTERcollector
             cntStringBuilder.DataSource = _GetSqliteDatabaseFilePath();
             cntStringBuilder.Pooling = true;
 
-            if (System.Configuration.ConfigurationManager.ConnectionStrings["SQLITE_CNT_STRING"] != null)
+            var configuration = System.Configuration.ConfigurationManager.OpenExeConfiguration(System.Configuration.ConfigurationUserLevel.None);
+
+            if (configuration.ConnectionStrings.ConnectionStrings["SQLITE_CNT_STRING"] != null)
             {
-                System.Configuration.ConfigurationManager.ConnectionStrings["SQLITE_CNT_STRING"].ConnectionString = cntStringBuilder.ToString();
+                configuration.ConnectionStrings.ConnectionStrings["SQLITE_CNT_STRING"].ConnectionString = cntStringBuilder.ToString();
+            }else
+            {
+                configuration.ConnectionStrings.ConnectionStrings.Add(
+                    new System.Configuration.ConnectionStringSettings()
+                    {
+                        Name = "SQLITE_CNT_STRING",
+                        ConnectionString = cntStringBuilder.ConnectionString,
+                        ProviderName = "System.Data.SQLite.EF6"
+                    });
             }
 
+            configuration.Save();
 
+            _database = new Database.Database("SQLITE_CNT_STRING");
         }
 
         private void _SetupConfiguration()
         {
-
+            _configuration = new Configuration();
         }
 
         private void _SetupPlugins()

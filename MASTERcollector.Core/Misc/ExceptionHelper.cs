@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace MASTERcollector.Misc
 {
-    class Configuration
+    internal class ExceptionHelper
     {
+        public enum EXCEPTION_TYPE
+        {
+
+        }
+
     }
 }
